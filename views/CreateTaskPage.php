@@ -1,11 +1,24 @@
 <?php
-    include("views/header.php");
+    include("Templates/header.php");
     $AllLists = GetLists();
     $MaxSizeOfLists = sizeof($AllLists);
     //var_dump($AllLists);
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // collect value of input field
+        $name = $_POST['name'];
+        $dur = $_POST['duration'];
+        $status = $_POST['duration'];
+        if (empty($name) || empty($dur) || empty($status)) {
+            echo "Name is empty";
+        } else {
+            CreateNewTask($_POST);
+            header("Location: index.php");
+        }
+    }
 ?>
 
-<form action="CreateTaskConfirm.php" method="post" id="taskform">
+<form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post" id="taskform">
 
     <h3>List_id:</h3>
         <select name="list_id" id="status2" >
