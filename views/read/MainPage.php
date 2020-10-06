@@ -1,7 +1,6 @@
 <?php
-    include("Templates/header.php");
-    $AllLists = GetLists();
-    $AllTasks = GetTasks();
+    $allLists = getLists();
+    $allTasks = getTasks();
 ?>
 <div class="container">
     <ul class="nav nav-tabs">
@@ -17,7 +16,7 @@
                         <input class="form-control " type="text" id="myInput" placeholder="Search for names.." title="Type in a name">      
                     </div>
                     <div class="col-sm-1">
-                        <a href="CreateListPage.php">
+                        <a href="Index.php?Action=Create&Showing=List">
                             <button type="button" class="btn btn-success btn-sm" >
                                 <i class="fa fa-plus"></i>
                             </button>
@@ -37,23 +36,23 @@
                     </thead>
                     <tbody id="myTable">
                         <?php
-                        foreach($AllLists as $Row){
+                        foreach ($allLists as $row) {
                             ?>
                             <tr>
-                                <td><?php echo $Row['list_id']; ?></td>
-                                <td><?php echo $Row['list_name']; ?></td>
-                                <td style="width:2%;" value="<?php echo $Row['list_id']; ?>">
-                                    <a href="ShowAssignedTasksPage.php?id=<?php echo $Row['list_id']; ?>">
+                                <td><?php echo $row['list_id']; ?></td>
+                                <td><?php echo $row['list_name']; ?></td>
+                                <td style="width:2%;" value="<?php echo $row['list_id']; ?>">
+                                    <a href="Index.php?Action=Show&Showing=List&Id=<?php echo $row['list_id']; ?>">
                                         <i class="fa fa-align-justify"></i>
                                     </a>
                                 </td>
-                                <td style="width:2%;" value="<?php echo $Row['list_id']; ?>">
-                                    <a href="EditListPage.php?id=<?php echo $Row['list_id']; ?>">
+                                <td style="width:2%;" value="<?php echo $row['list_id']; ?>">
+                                    <a href="Index.php?Action=Edit&Showing=List&Id=<?php echo $row['list_id']; ?>">
                                         <i class="fa fa-edit"></i>
                                     </a>
                                 </td>
-                                <td style="width:2%;" value="<?php echo $Row['list_id']; ?>">
-                                    <a href="DeleteListPage.php?id=<?php echo $Row['list_id']; ?>">
+                                <td style="width:2%;" value="<?php echo $row['list_id']; ?>">
+                                    <a href="Index.php?Action=Delete&Showing=List&Id=<?php echo $row['list_id']; ?>">
                                         <i class="fa fa-trash"></i>
                                     </a>
                                 </td>
@@ -79,7 +78,7 @@
                     </select>
                 </div> 
                 <div class="col-sm-1">
-                    <a href="CreateTaskPage.php">
+                    <a href="Index.php?Action=Create&Showing=Task">
                         <button type="button" class="btn btn-success btn-sm" >
                             <i class="fa fa-plus"></i>
                         </button>
@@ -99,21 +98,21 @@
                     </thead>
                     <tbody>
                         <?php
-                        foreach($AllTasks as $Row){
+                        foreach ($allTasks as $row) {
                             ?>
                             <tr>
-                                <td><?php echo $Row['task_id']; ?></td>
-                                <td><?php echo $Row['task_list_id']; ?></td>
-                                <td><?php echo $Row['task_name']; ?></td>
-                                <td><?php echo $Row['task_duration']; ?></td>
-                                <td><?php echo $Row['task_status']; ?></td>
-                                <td style="width:2%;" value="<?php echo $Row['task_id']; ?>">
-                                    <a href="EditTaskPage.php?id=<?php echo $Row['task_id']; ?>">
+                                <td><?php echo $row['task_id']; ?></td>
+                                <td><?php echo $row['task_list_id']; ?></td>
+                                <td><?php echo $row['task_name']; ?></td>
+                                <td><?php echo $row['task_duration']; ?></td>
+                                <td><?php echo $row['task_status']; ?></td>
+                                <td style="width:2%;" value="<?php echo $row['task_id']; ?>">
+                                    <a href="Index.php?Action=Edit&Showing=Task&Id=<?php echo $row['task_id']; ?>">
                                         <i class="fa fa-edit"></i>
                                     </a>
                                 </td>
-                                <td style="width:2%;" value="<?php echo $Row['task_id']; ?>">
-                                    <a href="DeleteTaskPage.php?id=<?php echo $Row['task_id']; ?>">
+                                <td style="width:2%;" value="<?php echo $row['task_id']; ?>">
+                                    <a href="Index.php?Action=Delete&Showing=Task&Id=<?php echo $row['task_id']; ?>">
                                         <i class="fa fa-trash"></i>
                                     </a>
                                 </td>
@@ -127,33 +126,4 @@
         </div>
     </div>
 </div>
-<!-- <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-    
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Create a new list</h4>
-        </div>
-        <div class="modal-body">
-            <form action="NewListPage.php" method="post" >
-                <div style="padding:5px;">
-                    <div class="col-sm-2"><p>name:</p></div>
-                    <div class="col-sm-10"><input class="form-control" type="text" name="name" required></div>
-                </div>
-                <input style="margin-left:45%; margin-top: 5px;" class="btn btn-default" type="submit" value="Versturen">
-            </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-      
-    </div>
-</div> -->
 </body>
-<!-- <script>
-$(document).ready( function () {
-    $('#table_id').DataTable();
-} );
-</script> -->

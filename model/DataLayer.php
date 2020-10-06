@@ -1,33 +1,34 @@
 <?php
-function ConnectToDatabase(){
-    $servername = "localhost";
-    $username = "root";
-    $password = "mysql";
-    $database = "ToDo_list";
+function connectToDatabase()
+{
+    $serverName = "localhost";
+    $userName = "root";
+    $passWord = "mysql";
+    $dataBase = "ToDo_list";
     
     try {
-        $conn = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
+        $conn = new PDO("mysql:host=$serverName;dbname=$dataBase", $userName, $passWord);
         // set the PDO error mode to exception
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         //echo "Connected successfully";
         return $conn;
-    }
-    catch(PDOException $e)
-    {
+    } catch(PDOException $e) {
         echo "Connection failed: " . $e->getMessage();
-    }
+	}
 }
 
-function GetLists(){
-    $conn = ConnectToDatabase();
+function getLists()
+{
+    $conn = connectToDatabase();
 	$query = $conn->query("SELECT * FROM lists");
 	$query->execute();
 	$result = $query->fetchAll();
 	return $result;
 }
 
-function GetList($id){
-    $conn = ConnectToDatabase();
+function getList($id)
+{
+    $conn = connectToDatabase();
 	$query = $conn->prepare("SELECT * FROM lists WHERE list_id=:list_id");
 	$query->bindParam(":list_id", $id);
 	$query->execute();
@@ -35,8 +36,9 @@ function GetList($id){
 	return $result;
 }
 
-function GetTasksForAssignedList($id){
-    $conn = ConnectToDatabase();
+function getTasksForAssignedList($id)
+{
+    $conn = connectToDatabase();
 	$query = $conn->prepare("SELECT * FROM tasks WHERE task_list_id=:list_id");
 	$query->bindParam(":list_id", $id);
 	$query->execute();
@@ -44,16 +46,18 @@ function GetTasksForAssignedList($id){
 	return $result;
 }
 
-function GetTasks(){
-    $conn = ConnectToDatabase();
+function getTasks()
+{
+    $conn = connectToDatabase();
 	$query = $conn->query("SELECT * FROM tasks");
 	$query->execute();
 	$result = $query->fetchAll();
 	return $result;
 }
 
-function GetTask($id){
-    $conn = ConnectToDatabase();
+function getTask($id)
+{
+    $conn = connectToDatabase();
 	$query = $conn->prepare("SELECT * FROM tasks WHERE task_id=:task_id");
 	$query->bindParam(":task_id", $id);
 	$query->execute();
@@ -61,15 +65,17 @@ function GetTask($id){
 	return $result;
 }
 
-function CreateNewList($data){
-	$conn = ConnectToDatabase();
+function createNewList($data)
+{
+	$conn = connectToDatabase();
 	$query = $conn->prepare("INSERT INTO lists (list_name) VALUES (:list_name);");
 	$query->bindParam(":list_name", $data['name']);
 	$query->execute();
 }
 
-function CreateNewTask($data){
-	$conn = ConnectToDatabase();
+function createNewTask($data) 
+{
+	$conn = connectToDatabase();
     $query = $conn->prepare("INSERT INTO tasks (task_list_id, task_name, task_duration, task_status) VALUES (:task_list_id, :task_name, :task_duration, :task_status);");
     $query->bindParam(":task_list_id", $data['list_id']);
     $query->bindParam(":task_name", $data['name']);
@@ -78,16 +84,18 @@ function CreateNewTask($data){
 	$query->execute();
 }
 
-function UpdateList($data){
-	$conn = ConnectToDatabase();
+function updateList($data)
+{
+	$conn = connectToDatabase();
     $query = $conn->prepare("UPDATE lists SET list_name = :list_name WHERE list_id=:list_id");
     $query->bindParam(":list_id", $data['id']);
     $query->bindParam(":list_name", $data['name']);
 	$query->execute();
 }
 
-function UpdateTask($data){
-	$conn = ConnectToDatabase();
+function updateTask($data)
+{
+	$conn = connectToDatabase();
     $query = $conn->prepare("UPDATE tasks SET task_list_id = :task_list_id, task_name = :task_name, task_duration = :task_duration, task_status = :task_status WHERE task_id=:task_id");
     $query->bindParam(":task_id", $data['id']);
     $query->bindParam(":task_list_id", $data['task_list_id']);
@@ -97,18 +105,18 @@ function UpdateTask($data){
 	$query->execute();
 }
 
-function DeleteList($data){
-	$conn = ConnectToDatabase();
+function deleteList($data)
+{
+	$conn = connectToDatabase();
 	$query = $conn->prepare('DELETE FROM lists WHERE list_id=:list_id');
 	$query->bindParam(":list_id", $data);
 	$query->execute();
 }
 
-function DeleteTask($data){
-	$conn = ConnectToDatabase();
+function deleteTask($data)
+{
+	$conn = connectToDatabase();
 	$query = $conn->prepare('DELETE FROM tasks WHERE task_id=:task_id');
 	$query->bindParam(":task_id", $data);
 	$query->execute();
 }
-
-?>

@@ -1,7 +1,5 @@
 <?php
-    include("Templates/header.php");
-    $list = GetList($_GET["id"]);
-    //var_dump($list);
+    $list = getList($_GET["Id"]);
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // collect value of input field
@@ -9,13 +7,13 @@
         if (empty($name)) {
             echo "Name is empty";
         } else {
-            UpdateList($_POST);
-            header("Location: index.php");
+            updateList($_POST);
+            header("Location: Index.php?Action=Show&Showing=All");
         }
     }
 ?>
-<form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post">
-    <input type="hidden" name="id" value="<?= $list["list_id"]?>">
+<form action="Index.php?Action=Edit&Showing=List&Id=<?php echo $list["list_id"] ?>" method="post">
+    <input type="hidden" name="id" value="<?php echo $list["list_id"] ?>">
     <h3>name: <input type="text" name="name" value="<?php echo $list["list_name"] ?>" required></h3>
     <input type="submit" value="Versturen">
 </form>

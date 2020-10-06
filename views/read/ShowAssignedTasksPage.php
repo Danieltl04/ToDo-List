@@ -1,9 +1,5 @@
 <?php
-    include("Templates/header.php");
-    $test = GetTasksForAssignedList($_GET["id"]);
-    //var_dump($test);
-
-    
+    $tasks = getTasksForAssignedList($_GET["Id"]);
 ?>
 <div class="container">        
   <table class="table table-striped">
@@ -16,12 +12,12 @@
     </thead>
     <tbody>
     <?php
-        foreach ($test as $row) {
+        foreach ($tasks as $task) {
             ?>
             <tr>
-              <td><? echo $row['task_name']; ?></td>
-              <td><? echo $row['task_duration']; ?></td>
-              <td><? echo $row['task_status']; ?></td>
+              <td><?php echo $task['task_name']; ?></td>
+              <td><?php echo $task['task_duration']; ?></td>
+              <td><?php echo $task['task_status']; ?></td>
             </tr>
             <?php
         }

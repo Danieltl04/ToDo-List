@@ -1,7 +1,3 @@
-<?php
-    include("../model/Database.php");
-?>
-
 <!DOCTYPE html>
 <html lang="nl">
     <head>
